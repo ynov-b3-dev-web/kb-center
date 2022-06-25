@@ -1,0 +1,3 @@
+[submodule "react"]
+	path = react
+	url = https://github.com/ynov-b3-dev-web/react-front
