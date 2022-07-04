@@ -9,7 +9,7 @@ Pour cet exemple nous serons sur symfony version 5.4, pour l'installer faire la 
 symfony new auth --version=5.4
 ```
 
-Nous aurons également besoin d'une base de données, pour cela ajouter la ligne suivante au .env
+Nous aurons également besoin d'une base de données, pour cela ajouter la ligne suivante dans le .env.local (le .env.local doit être ignoré de Git)
 
 ```php
 DATABASE_URL="mysql://root:password@127.0.0.1:3306/auth?serverVersion=5.7"
@@ -67,17 +67,65 @@ php bin/console doctrine:migrations:migrate
 
 Une fois la table User ajouter à la base nous pouvons créer un utilisateur
 
-Pour le rôle rentrer seulement `[]` pour avoir "ROLE_USER"
-
-Et pour le mot de passe lancer la commande suivante pour le crypter
+Pour cela nous allons utiliser les fixtures qui vont nous permettre d'insérer des données en base
 
 ```bash
-bin/console security:hash-password '1234'
+composer require --dev orm-fixtures
 ```
 
-"1234" étant le mot de passe 
+Une fois installé, le fichier src/DataFixtures/AppFixtures.php a dû se générer
 
-Il nous vous reste plus qu'à copier le mot de passe haché et à l'insérer en base
+Placez le code suivant à l'intérieur
+
+```php
+<?php
+
+namespace App\DataFixtures;
+
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Entity\User;
+
+class AppFixtures extends Fixture
+{
+    private UserPasswordHasherInterface $hasher;
+
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
+        $this->hasher = $hasher;
+    }
+
+    public function load(ObjectManager $manager)
+    {
+        $user = new User();
+        $user->setEmail('test@test.com');
+
+        $password = $this->hasher->hashPassword($user, 'pass_1234');
+        $user->setPassword($password);
+        $user->setRoles([]);
+
+        $manager->persist($user);
+        $manager->flush();
+    }
+}
+
+```
+
+Nous utilisons donc le UserPasswordHasherInterface pour hasher le mot de passe
+
+On utilise
+        - setEmail pour l'email 
+        - setPassword avec le mot de passe hasher
+        - setRoles avec seulement `[]` pour avoir "ROLE_USER"
+        
+        
+Une fois les fixtures renseignées il reste plus qu'à lancer la commande suivante pour les insérer en base
+
+
+```bash
+php bin/console doctrine:fixtures:load
+```
 
 ## Ajout JWT
 
@@ -161,4 +209,4 @@ Ajouter cette ligne
     token_ttl: 3600
 ```
 
-3600 est en seconde ça correspond à une 1h, par défaut le token dure 1h
+3600 est en secondes ça correspond à une 1h, par défaut le token dure 1h
