@@ -2,15 +2,14 @@
 
 ## Prérequis
 
-Pour cet exemple nous serons sur synfony version 4.5, pour l'installer faire la commande suivante :
+Pour cet exemple nous serons sur symfony version 5.4, pour l'installer faire la commande suivante :
 
 
 ```bash
 symfony new auth --version=5.4
 ```
 
-
-Nous aurrons également besoin d'une base de donnée, pour cela ajouter la ligne suivante au .env
+Nous aurons également besoin d'une base de données, pour cela ajouter la ligne suivante au .env
 
 ```php
 DATABASE_URL="mysql://root:password@127.0.0.1:3306/auth?serverVersion=5.7"
@@ -21,7 +20,7 @@ DATABASE_URL="mysql://root:password@127.0.0.1:3306/auth?serverVersion=5.7"
 `auth` le nom de la table 
 
 
-Ensuite installer les packages suivants :
+Ensuite, installer les packages suivants :
 
 ```bash
 composer require symfony/orm-pack
@@ -31,7 +30,7 @@ composer require --dev symfony/maker-bundle
 ```
 
 
-Pour créer la base de donnée il faut lancer la commande suivante :
+Pour créer la base de données il faut lancer la commande suivante :
 
 ```bash
 php bin/console doctrine:database:create
@@ -45,18 +44,17 @@ Faire les commandes suivantes pour avoir le bundle security
 composer require symfony/security-bundle
 ```
 
-Maintenant que les bundles sont installer faire la commande `php bin/console make:user` pour créer un l'entity User
+Maintenant que les bundles sont installées faire la commande `php bin/console make:user` pour créer une l'entity User
 
-- Dans un premier temps on vous demandera que nom vous souhaitez donner à votre classe : par defaut User
+- Dans un premier temps on vous demandera que nom vous souhaitez donner à votre classe : par défaut User
 
-- Ensuite on vous demande si vous souhaité le socker en base : Par defaut oui
+- Ensuite, on vous demande si vous souhaitez le stocker en base : Par défaut oui
 
-- Vous devais choisir le nom de l'entité qui sera unique : Par default email
+- Vous devez choisir le nom de l'entité qui sera unique : Par default email
 
-- Et enfin vous dites si vous souhaitez hasher les mots de passes : Par defaut oui 
+- Et enfin vous dites si vous souhaitez hasher les mots de passe : Par defaut oui
 
-
-On fois toutes ces informations renseignées, vous avez votre entité User, il faut maintenant ajouter User à la base donnée avec ces deux commandes :
+Une fois toutes ces informations renseignées, vous avez votre entité User, il faut maintenant ajouter User à la base donnée avec ces deux commandes :
 
 ```bash
 php bin/console make:migration
@@ -69,7 +67,7 @@ php bin/console doctrine:migrations:migrate
 
 Une fois la table User ajouter à la base nous pouvons créer un utilisateur
 
-Pour le role rentrer seulement `[]` pour avoir le role "ROLE_USER"
+Pour le rôle rentrer seulement `[]` pour avoir "ROLE_USER"
 
 Et pour le mot de passe lancer la commande suivante pour le crypter
 
@@ -84,9 +82,9 @@ Il nous vous reste plus qu'à copier le mot de passe haché et à l'insérer en 
 ## Ajout JWT
 
 
-Nous allons utilisé LexikJWTAuthenticationBundle pour le JWT	
+Nous allons utiliser LexikJWTAuthenticationBundle pour le JWT	
 
-lien de la doc : (https://github.com/lexik/LexikJWTAuthenticationBundle/blob/2.x/Resources/doc/index.rst#getting-started)
+Lien de la doc : (https://github.com/lexik/LexikJWTAuthenticationBundle/blob/2.x/Resources/doc/index.rst#getting-started)
 
 Pour l'installer lancer la commande suivante:
 
@@ -94,7 +92,7 @@ Pour l'installer lancer la commande suivante:
 composer require "lexik/jwt-authentication-bundle"
 ```
 
-Nous allons également avoir besoin de génèrer une clé ssh privé et plublic qui vas permettre d'avoir un JWT unique 
+Nous allons également avoir besoin de générer une clé ssh privé et public qui va permettre d'avoir un JWT unique
 
 Attention si vous êtes sous Windows pensez à installer openSSL
 
@@ -130,7 +128,7 @@ api_login_check:
     path: /api/login_check
 ```
 
-Maintenant que tous est configurer allons sur insomnia ou postman
+Maintenant que tout est configuré allons sur insomnia ou postman
 
 Dans le header ajouter 
 
@@ -139,7 +137,7 @@ Dans le header ajouter
 Content-Type application/json
 ```
 
-Faire une requette post avec l'URL suivante :
+Faire une requête post avec l'URL suivante :
 
 http://localhost:8000/api/login_check
 
@@ -156,11 +154,12 @@ et lancer la requête
 Bravo, vous êtes authentifié et avez reçu votre token
 
 
-Si vous souhaité changer la durée du token il faut aller dans config/packages/lexik_jwt_authentication.yaml :
+Si vous souhaitez changer la durée du token il faut aller dans config/packages/lexik_jwt_authentication.yaml :
 Ajouter cette ligne
+
  
 ```php
     token_ttl: 3600
 ```
 
-3600 est en seconde ça correspond à une 1h, par defaut le token dure 1h
+3600 est en seconde ça correspond à une 1h, par défaut le token dure 1h
