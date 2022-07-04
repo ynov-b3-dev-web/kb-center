@@ -4,7 +4,7 @@
 
 - [ReactJS](https://github.com/ynov-b3-dev-web/react-front)
 - Angular
-- Vue
+- [Vue 3](/vue-3)
 - NextJS
 - [Gatsby](https://github.com/ld-web/vtc-lyon-beaujolais)
 
