@@ -111,7 +111,6 @@ Maintenant ajouter les lignes suivantes dans config/packages/security.yaml avant
                 check_path: /api/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-
         api:
             pattern:   ^/api
             stateless: true
@@ -157,7 +156,7 @@ Bravo, vous êtes authentifié et avez reçu votre token
 Si vous souhaitez changer la durée du token il faut aller dans config/packages/lexik_jwt_authentication.yaml :
 Ajouter cette ligne
 
- 
+
 ```php
     token_ttl: 3600
 ```
