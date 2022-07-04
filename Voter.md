@@ -2,7 +2,7 @@
 
 Voters are Symfony's most powerful way of managing permissions. They allow you to centralize all permission logic, then reuse them in many places.
 
-Create file `/src/Security/YourBestVoter.php`.
+Create file `/src/Security/YourBestVoter.php`. Or you can easily use `make:voter` (depend of: Symfony MakerBundle)
 
 In this file you can create the class like that:
 ```
@@ -12,7 +12,7 @@ class YourBestVoter extends Voter {
 }
 ```
 
-You will need to import to methods: supports and voteOnAttribute
+You will need to implement to methods: supports and voteOnAttribute
 ```
 protected function supports(string $attribute, $subject): bool
 {
@@ -45,6 +45,9 @@ protected function voteOnAttribute(string $attribute, $subject, TokenInterface $
 
 The methods `supports` is used for validate the request. If the return is false, the return code will be 401 Access denied. 
 If true is returned, you go on the method `voteOnAttribute`. Then this method has the same comportment, if false is returned, the response code will be 401 Access denied. But if true is returned, the response code will be 200 with your wanted data.
+This comportment is only in the case of one Voter.
+You can have many Voters and differents strategies of access.
+See more on: https://symfony.com/doc/5.4/security/voters.html#changing-the-access-decision-strategy
 
 
 ## Your entity
