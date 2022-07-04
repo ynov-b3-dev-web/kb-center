@@ -13,4 +13,4 @@
 - [Symfony](https://github.com/ynov-b3-dev-web/sf-5-back)
 - [Rappel objet : les interfaces](rappel_objet_interfaces/)
 - NestJS
-- [Voter Symfony](https://github.com/Gougouli69/kb-center/blob/master/Voter.md)
+- [Voter Symfony](/Voter.md)
