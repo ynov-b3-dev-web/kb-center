@@ -7,6 +7,7 @@
 - [Vue 3](vue-3/)
 - NextJS
 - [Gatsby](https://github.com/ld-web/vtc-lyon-beaujolais)
+- [RIVE App (animations)](RIVE_App/)
 - [React Router Dom / HashLink](react-router-dom/README.md)
 
 ## Back
