@@ -1,31 +1,32 @@
 # Présentation Routing / MultiRouting / HashLink
 
 Sommaire :
+
 1. [React Router Dom](#react-router-dom)
 2. [Multi Routing](#multirouting)
 3. [HashLink](#hashlink)
 
 ## React Router Dom
 
-Tout d'abord il faut lancer un projet react et télécharger le package de react router dom :
+Tout d'abord il faut lancer un projet react et télécharger le package de React Router Dom :
 
 `npm install react-router-dom@6`
 
-Une fois l'installation du package terminé nous allons l'appeler dans notre page ainsi que ses composants.
+Une fois l'installation du package terminée nous allons l'appeler dans notre page ainsi que ses composants.
 
 ### Création des Routes
 
 `import { BrowserRouter, Routes, Route } from "react-router-dom";`
 
-`BrowserRouter` : le composant qui va entourer tous les autres composants qui font parti de react rooter dom et qui vont changer avec les pages.
+`BrowserRouter` : le composant qui va entourer tous les autres composants qui font partie de React Router Dom et qui vont changer avec les pages.
 
-`Routes` : le composant qui va entourer tous les composants Route.
+`Routes` : le composant qui va entourer tous les composants `Route`.
 
 `Route` : le composant dans lequel on va définir l'url ainsi que le composant à afficher dans cette page ("index" sert à définir quelle est la page de base à afficher / "path" sert à définir l'URL des pages).
 
-Voici un exemple de comment se présente une arborescene normal de react router dom :
+Voici un exemple de comment se présente une arborescence normale de React Router Dom :
 
-```
+```jsx
 <BrowserRouter>
     <Routes>
         <Route index element={<Home />} />
@@ -36,15 +37,15 @@ Voici un exemple de comment se présente une arborescene normal de react router 
 
 ### Navigation sur le site
 
-Afin de naviguer à l'intérieur du site nous allons devoir implémenter des liens vers les différentes pages du site, pour cela nous allons commencer par appeler le composant permetant la navigation :
+Afin de naviguer à l'intérieur du site nous allons devoir implémenter des liens vers les différentes pages du site, pour cela nous allons commencer par appeler le composant permettant la navigation :
 
 `import { Link } from "react-router-dom;`
 
-Le composant `link` se comporte comme une balise `<a>` en HTML avec une argument `to` qui correspond au `path` de la route souhaitée.
+Le composant `Link` se comporte comme une balise `<a>` en HTML avec une argument `to` qui correspond au `path` de la route souhaitée.
 
 Exemple :
 
-```
+```jsx
 function Home() {
   return (
     <div>
@@ -57,9 +58,10 @@ function Home() {
   );
 }
 ```
+
 ## MultiRouting
 
-Afin de permettre un changement d'élément dans une page il faut légérement modifier les composants Route et Link.
+Afin de permettre un changement d'élément dans une page il faut légèrement modifier les composants `Route` et `Link`.
 
 Pour le composant Route il faut rajouter `/*` derrière le path d'origine, le `/*` signifie qu'il peut y avoir d'autre Routes derrière cette Route.
 
@@ -67,26 +69,27 @@ Exemple :
 
 `<Route path=":voyageId/*" element={<VoyageAlbum />} />`
 
-Une fois cette modification faites sur l'élément parent, il faut, à l'intérieur du composant Route d'origine (avec le `/*`), mettre une nouvelle Route qui aura comme path l'URL qui s'ajoutera à notre path d'origine.
+Une fois cette modification faite sur l'élément parent, il faut, à l'intérieur du composant Route d'origine (avec le `/*`), mettre une nouvelle Route qui aura comme path l'URL qui s'ajoutera à notre path d'origine.
 
 Afin de limiter le nombre de routes à écrire on passe par le params (ici voyageId) qui correspond au chemin selectionné dans le composant Link cliqué.
 
-Les informations du params sont envoyés dans le composant de la route et utilisable via un `useParams()` défini comme ceci dans le composant : 
+Les informations du params sont envoyés dans le composant de la route et utilisable via un `useParams()` défini comme ceci dans le composant :
 
-```
+```jsx
 const { voyageId } = useParams();
 const [voyage, setVoyage] = useState(null);
 
 useEffect(() => {
-	const voyageItem = VOYAGES.filter((item) => item.id == voyageId);
-	setVoyage(voyageItem[0]);
+  const voyageItem = VOYAGES.filter((item) => item.id == voyageId);
+  setVoyage(voyageItem[0]);
 }, [voyageId]);
 
 if (voyage === null) {
-	return <div>Loading...</div>;
+  return <div>Loading...</div>;
 }
 ```
-(`VOYAGES` étant la liste de données qu'ils soient en dur, en bdd ou en API)
+
+(`VOYAGES` étant la liste de données, qu'elles soient en dur, en bdd ou en API)
 
 Pour le composant Link il faut renseigner le path de la deuxième balise Route.
 
@@ -94,7 +97,7 @@ Exemple Concret : [Projet Travel Earth](https://github.com/ynov-b3-dev-web/trave
 
 ## HashLink
 
-Pour faire des liens internes à notre (pour les utiliser sur un site one page par exemple) il faut installer un autre package car react router dom ne le fais pas de lui même :
+Pour faire des liens internes à notre application (pour les utiliser sur un site one page par exemple) il faut installer un autre package car react router dom ne le fais pas de lui-même :
 
 `npm install --save react-router-hash-link`
 
@@ -102,11 +105,11 @@ Une fois le package installé il suffit de remplacer l'import des Link de react 
 
 `import { HashLink as Link } from "react-router-hash-link";`
 
-Une fois l'importe il suffit de rajouter à vos Link le hashlink de votre choix (correspondant à un id d'un de vos composant) :
+Une fois importé, il suffit de rajouter à vos Link le hashlink de votre choix (correspondant à un id d'un de vos composants) :
 
-```
+```jsx
 <Link to="/#home" className="navbar_link">
-	Accueil
+  Accueil
 </Link>
 ```
 
