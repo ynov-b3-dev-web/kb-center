@@ -17,13 +17,13 @@ Une fois l'installation du package terminé nous allons l'appeler dans notre pag
 
 `import { BrowserRouter, Routes, Route } from "react-router-dom";`
 
-`BrowserRouter` : le composant qui va entourer tous les autres composants qui font parti de react rooter dom et qui vont changer avec les pages
+`BrowserRouter` : le composant qui va entourer tous les autres composants qui font parti de react rooter dom et qui vont changer avec les pages.
 
-`Routes` : le composant qui va entourer tous les composants route
+`Routes` : le composant qui va entourer tous les composants Route.
 
-`Route` : le composant dans lequel on va définir l'url et le le composant à afficher dans cette page ("index" sert à définir quelle est la page de base à afficher / "path" sert à définir le tag des pages)
+`Route` : le composant dans lequel on va définir l'url ainsi que le composant à afficher dans cette page ("index" sert à définir quelle est la page de base à afficher / "path" sert à définir l'URL des pages).
 
-Voila comment se présente une arborescene normal de react router dom :
+Voici un exemple de comment se présente une arborescene normal de react router dom :
 
 ```
 <BrowserRouter>
@@ -40,7 +40,7 @@ Afin de naviguer à l'intérieur du site nous allons devoir implémenter des lie
 
 `import { Link } from "react-router-dom;`
 
-Le link se comporte comme une balise <a> en HTML avec une argument `to` qui correspond au `path` de la route souhaité.
+Le composant `link` se comporte comme une balise `<a>` en HTML avec une argument `to` qui correspond au `path` de la route souhaitée.
 
 Exemple :
 
@@ -59,15 +59,34 @@ function Home() {
 ```
 ## MultiRouting
 
-Afin de permettre un changement d'élément dans une page il faut légérement modifier les composants Route et Link
+Afin de permettre un changement d'élément dans une page il faut légérement modifier les composants Route et Link.
 
-Pour le composant Route il faut rajouter `/*` derrière le path d'origine, cela signifie qu'il peut y avoir d'autre Routes derrière cette Route.
+Pour le composant Route il faut rajouter `/*` derrière le path d'origine, le `/*` signifie qu'il peut y avoir d'autre Routes derrière cette Route.
 
 Exemple :
 
-`<Route path="/Voyage_1/*" element={<VoyageAlbum name="Voyage 1" />} />`
+`<Route path=":voyageId/*" element={<VoyageAlbum />} />`
 
-Et à l'intérieur du composant Route d'origine (avec le `/*`) il faut mettre une nouvelle Route qui aura path l'élément qui s'ajoutera à notre path d'origine.
+Une fois cette modification faites sur l'élément parent, il faut, à l'intérieur du composant Route d'origine (avec le `/*`), mettre une nouvelle Route qui aura comme path l'URL qui s'ajoutera à notre path d'origine.
+
+Afin de limiter le nombre de routes à écrire on passe par le params (ici voyageId) qui correspond au chemin selectionné dans le composant Link cliqué.
+
+Les informations du params sont envoyés dans le composant de la route et utilisable via un `useParams()` défini comme ceci dans le composant : 
+
+```
+const { voyageId } = useParams();
+const [voyage, setVoyage] = useState(null);
+
+useEffect(() => {
+	const voyageItem = VOYAGES.filter((item) => item.id == voyageId);
+	setVoyage(voyageItem[0]);
+}, [voyageId]);
+
+if (voyage === null) {
+	return <div>Loading...</div>;
+}
+```
+(`VOYAGES` étant la liste de données qu'ils soient en dur, en bdd ou en API)
 
 Pour le composant Link il faut renseigner le path de la deuxième balise Route.
 
