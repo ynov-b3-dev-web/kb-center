@@ -72,7 +72,7 @@ Dans cette route, nous allons :
 
 Retrouvez [ici](https://github.com/ynov-b3-dev-web/projet-web-oui/blob/dev/server/routes/auth.ts) l'ensemble du code commenté et détaillé.
 
-Une fois la connexion réussie, ses données vont être conservées et l'utilisateur sera redirigé dans la page d'accueil.
+Une fois la connexion réussie, ses données vont être conservées et l'utilisateur sera redirigé vers la page d'accueil.
 
 ## 3 - Conservation des données utilisateurs
 
@@ -80,7 +80,7 @@ Les données utilisateurs sont conservées dans un [contexte de React](https://r
 
 ### Reducer
 
-La méthode `reduce` permet d'accumuler des valeurs ([Voir mdn](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)). Un `Reducer` est une fonction qui va permettre de conserver un état et de performer des actions dessus ([Voir redux](https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#reducers)). En React, on va utiliser le hook [useReducer](https://fr.reactjs.org/docs/hooks-reference.html#usereducer) contenant le `state` de notre application, et une fonction `dispatch` qui nous permettra de performer des actions définie par la suite, que l'on va intégrer à notre contexte. Tout d'abord, on va définir un état initial.
+La méthode `reduce` permet d'accumuler des valeurs ([Voir mdn](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)). Un `Reducer` est une fonction qui va permettre de conserver un état et de performer des actions dessus ([Voir redux](https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#reducers)). En React, on va utiliser le hook [useReducer](https://fr.reactjs.org/docs/hooks-reference.html#usereducer) contenant le `state` de notre application, et une fonction `dispatch` qui nous permettra de performer des actions définies par la suite, que l'on va intégrer à notre contexte. Tout d'abord, on va définir un état initial.
 
 ```javascript
 export const initialState = {
@@ -166,7 +166,7 @@ const [state] = useAuthState(); // Pour récupérer que le state
 
 ### Sauvegarde après login
 
-Après le login, quand le serveur nous renvoie un succès, la réponse est accompagnée de données utilisateurs qui vont être sauvegardée dans le contexte via la fonction `dispatch`.
+Après le login, quand le serveur nous renvoie un succès, la réponse est accompagnée de données utilisateurs qui vont être sauvegardées dans le contexte via la fonction `dispatch`.
 
 > front/context/Auth/AuthAction.js
 
@@ -193,7 +193,7 @@ export async function login(dispatch, payload) {
 
 ### Protected Route
 
-Le contexte en React, ne sauvegarde pas l'état dans le cas où l'utilisateur rafraichit la page. Par conséquent, les données utilisateurs à ce moment là sont réinitialisées. Pour pallier à ça, nous pouvons englober les pages nécessitants l'authentification d'un composant `ProtectedRoute`, qui requêtera une route du serveur pour vérifier si l'utilisateur est authentifié, et nous retournera les données.
+Le contexte en React, ne sauvegarde pas l'état dans le cas où l'utilisateur rafraîchit la page. Par conséquent, les données utilisateurs à ce moment là sont réinitialisées. Pour pallier à ça, nous pouvons englober les pages nécessitant l'authentification d'un composant `ProtectedRoute`, qui requêtera une route du serveur pour vérifier si l'utilisateur est authentifié, et nous retournera les données.
 
 Côté serveur, on a la route `/isAuth` qui renvoie l'user donné par le middleware `authorization`. Un middleware est une fonction qui va être exécutée en amont, et permettra de passer à la suite au moment ou l'on souhaite avec la fonction `next()`;
 
@@ -292,7 +292,7 @@ useEffect(() => {
 
 ## 4 - Gestion du rafraichissement de JWT
 
-Dans le cas d'un access token qui expire, on va utiliser les [Axios interceptors](https://axios-http.com/docs/interceptors) dans le fichier `axiosconfig.js` pour rafraichir notre token. Le premier paramètre de la fonction `use()` permet de définir un intercepteur si la requête est un succès, que l'on va laisser vide dans notre exemple, et le deuxième paramètre permet de définir un intercepteur en cas d'erreur, ce qui nous intéresse ici.
+Dans le cas d'un access token qui expire, on va utiliser les [Axios interceptors](https://axios-http.com/docs/interceptors) dans le fichier `axiosconfig.js` pour rafraîchir notre token. Le premier paramètre de la fonction `use()` permet de définir un intercepteur si la requête est un succès, que l'on va laisser vide dans notre exemple, et le deuxième paramètre permet de définir un intercepteur en cas d'erreur, ce qui nous intéresse ici.
 
 > front/axiosconfig.js
 
@@ -335,10 +335,11 @@ router.get("/refreshToken", (req: Request, res: Response) => {
 ```
 
 Dans cette route, nous allons :
+
 - Vérifier que le token fourni n'est pas vide
 - Vérifier que le token est valide
 - Vérifier que l'user correspondant au token existe, et que le token fourni est similaire à celui en base
 - Générer un nouveau token
-- Envoyez une réponse de succès avec un cookie httpOnly pour le nouvel access token
+- Envoyer une réponse de succès avec un cookie httpOnly pour le nouvel access token
 
 Voir le code complet [ici](https://github.com/ynov-b3-dev-web/projet-web-oui/blob/dev/server/routes/auth.ts)
