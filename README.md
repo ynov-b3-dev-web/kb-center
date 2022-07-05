@@ -1,26 +1,64 @@
-# Présentations Ynov B3 Dév Web
+# Travailler avec le composant Serializer de Symfony
 
-## Front
 
-- [ReactJS](https://github.com/ynov-b3-dev-web/react-front)
-- Angular
-- [Vue 3](vue-3/)
-- NextJS
-- [Gatsby](https://github.com/ld-web/vtc-lyon-beaujolais)
-- [React Router Dom / HashLink](react-router-dom/README.md)
+**Tout d'abord, une explication de ce terme :**
 
-## Back
+C'est simplement le fait de transformer un objet dans un format spécifique *(Json, Yaml..)*, quand on re-transforme
+à nouveau ce ficher dans le format d'origine on dit que l'on **désérialise**.
 
-- [Symfony](https://github.com/ynov-b3-dev-web/sf-5-back)
-- [Rappel objet : les interfaces](rappel_objet_interfaces/)
-- NestJS
-- [Symfony JWT token](symfony_JWT_token/)
-- [Voter Symfony](Voter.md)
+Il est tout à fait possible développer son API sur Symfony sans passer par API Platform !
 
-## Front/Back
+Dans le schéma ci-dessous la sérialisation transforme l'objet en array avant l'encodage tandis que la désérialisation fait l'inverse.
+![alt](https://www.novaway.fr/uploads/media/serializer_workflow.png)
 
-- [Authentification JWT & Refresh Token avec NextJS/Node Express](Authentification/)
+# Présentation de ses normalizers et décodeurs
 
-## CI/CD  
+Lorsqu'on travaille avec ce composant on utilise majoritairement 3 normalizers : 
 
-- [Github Action](présentation-github-action/)
+- **ObjectNormalizer** qui permet d'accéder aux propriétés de l'objet. Il permet de chercher les propriétés et méthodes publiques de
+l'objet (GET/SET/HAS/IS/ADD/REMOVE)
+- **GetSetMethodNormalizer** utilise les getter et setter de l'objet, cherche toutes les méthodes publiques ayant en nom get suivi d'un
+nom de propriété.
+- Et enfin **PropertyNormalizer** qui utilise Php reflexion pour accéder aux propriétés de l'objet, qu'elles soient publiques ou privées.
+
+Il est possible de créer un normalizer personnalisé en implémentant à notre class l'interface NormalizerInterface, la création du tag étant automatique :
+
+```
+new_normalizer:
+    class: Path\to\class
+    public: false
+    tags: [serializer.normalizer]
+```
+# Utilisation du Serializer
+
+Une fois dans votre Controller il vous faudra : 
+
+- Instancier le Serializer avec les normalizers et encoders en paramètres
+- Appeler la méthode serialize du serializer avec l'objet et le format en paramètres.
+
+```php
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+//...
+
+      $encoders = array(new JsonEncoder());
+      $normalizers = array(new ObjectNormalizer());
+
+      $serializer = new Serializer($normalizers, $encoders);
+      $productSerialized = $serializer->serialize($product, 'json');
+//...
+```
+
+En ce qui concerne la **désérialisation**,  il faut appeler la méthode deserialize avec en paramètres les données sérialisées,
+la class et le format : 
+```php
+$productDeserialized = $serializer->deserialize($productSerialized, Product::class, 'json');
+```
+
+Si vous souhaitez le faire directement dans un objet existant : 
+```php
+$productDeserialized>deserialize($productSerialized, Product::class, 'json', array('object_to_populate' => $product));
+```
+
