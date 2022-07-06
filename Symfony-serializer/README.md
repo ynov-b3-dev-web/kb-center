@@ -19,7 +19,7 @@ Lorsqu'on travaille avec ce composant on utilise majoritairement 3 normalizers :
 l'objet (GET/SET/HAS/IS/ADD/REMOVE)
 - **GetSetMethodNormalizer** utilise les getter et setter de l'objet, cherche toutes les méthodes publiques ayant en nom get suivi d'un
 nom de propriété.
-- Et enfin **PropertyNormalizer** qui utilise Php reflexion pour accéder aux propriétés de l'objet, qu'elles soient publiques ou privées.
+- **PropertyNormalizer** qui utilise Php reflexion pour accéder aux propriétés de l'objet, qu'elles soient publiques ou privées.
 
 Il est possible de créer un normalizer personnalisé en implémentant à notre class l'interface NormalizerInterface, la création du tag étant automatique :
 
