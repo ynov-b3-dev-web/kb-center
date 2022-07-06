@@ -2,7 +2,7 @@
 
 ## Front
 
-- [React JS](https://github.com/ynov-b3-dev-web/react-front)
+- [ReactJS](https://github.com/ynov-b3-dev-web/react-front)
 - Angular
 - [Vue 3](vue-3/)
 - NextJS
