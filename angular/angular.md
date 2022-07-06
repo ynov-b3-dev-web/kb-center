@@ -8,7 +8,7 @@ La première version date de septembre 2016.
 Le Framework est basé sur une architecture du type MVC et permet donc de séparer les données, le visuel et les actions.
 
 Les 3 principales caractéristiques d'Angular sont : 
-- Un cadre basé sur des composants
+- Un cadre basé sur des composants.
 - Une collection de bibliothèques bien intégrées qui couvrent une grande variété de fonctionnalités. Par exemple : le routage ou la gestion des formulaires.
 - Une suite d'outils de développement pour vous aider à développer, tester et mettre à jour votre code.
 
@@ -16,7 +16,7 @@ Les 3 principales caractéristiques d'Angular sont :
 ### ANGULAR != ANGULAR JS
 
 La différence la plus fondamentale entre les deux frameworks est qu’Angular est basé sur Typescript alors que AngularJS est basé sur Javascript. Cela implique essentiellement qu’il y aura des différences dans leurs composants.
-Angular a également une syntae différente de AngularJs en se concentrant sur les "[]" pour la liaison des propriétés, et de "( )" pour les liaisons des événements.
+Angular a également une syntaxe différente de AngularJs en se concentrant sur les "[]" pour la liaison des propriétés, et de "( )" pour les liaisons des événements.
 
 Exemple avec la gestion d'évenement :
 
@@ -31,11 +31,11 @@ Installation: `npm install -g @angular/cli`
 
 Aide: `ng help`
 
-Génération d'un projet Angular : `ng new PROJECT-NAME`
+Génération d'un projet Angular : `ng new mon-projet`
 
 Lancement d'un projet Angular :  `ng serve`
 
-Créer un composant : `ng generate component my-new-component`, alias :  `ng g component my-new-component`
+Créer un composant : `ng generate component mon-composant`, alias :  `ng g component mon-composant`
 
  ________________________________
 ### LES COMPOSANTS 
@@ -59,7 +59,7 @@ export class AppComponent {
 
 Le décorateur @Component a un paramètre JSON qui doit contenir au moins les 3 premiers tags : selector, styleUrls et templateUrl.
 
-- selector : Le sélecteur défini le tag HTML qui agit sur la page web qui le référence. Exemple avec un selector : app-exemple. Dans ce cas le composant sera inséré par : <app-exemple>.
+- selector : Le sélecteur défini le tag HTML qui agit sur la page web qui le référence. Exemple avec un selector : app-exemple. Dans ce cas le composant sera inséré par la balise : <app-exemple>.
 - templateUrl : permet d’associer un fichier externe HTML contenant la structure de la vue du composant.
 - styleUrls : spécifier les feuilles de styles CSS associées à ce composant.
  ________________________________
@@ -81,7 +81,7 @@ Exemple :
     <li *ngFor="let item of listItems">{{ item.name }}</li>
 </ul>
   ```
-- ng Switch : La directive ng-switch vous permet de masquer/afficher des éléments HTML en fonction d'une expression. Les éléments enfants avec la ng-switch-whendirective seront affichés s'ils obtiennent une correspondance, sinon l'élément et ses enfants seront supprimés. Vous pouvez également définir une section par défaut, en utilisant la ng-switch-default directive, pour afficher une section si aucune des autres sections n'obtient de correspondance.
+- ng Switch : La directive ng-switch vous permet de masquer/afficher des éléments HTML en fonction d'une expression. Les éléments enfants avec la directive ng-switch-when seront affichés s'ils sont appellés, sinon l'élément et ses enfants seront supprimés. Vous pouvez également définir une section par défaut, en utilisant la ng-switch-default directive, pour afficher une section si aucune des autres sections n'est afficher.
   Exemple : 
  
 ```
@@ -92,7 +92,6 @@ Exemple :
     <div ng-switch-default>"defaultValue"</div>
 </div>
 ```
-</div>
 
 **Directives d'attributs :**
 - ngStyle : Il se charge de modifier l'apparence de l'élément porteur.
@@ -100,7 +99,8 @@ Exemple :
  ` <div [ngStyle]="{color:'red'}">Exemple</div> ` -> le ngStyle transforme juste notre [ngStyle]="{color:'red'}" en style="color: red;".
  
  - Directive personnalisée : Il est également possible de créer nos propres directives. 
-  Exemple :
+  
+Exemple :
 
 ```
 
@@ -128,8 +128,8 @@ Dans le fichier app.componenet.html, on appelle le router-outlet (reference au a
           <router-outlet></router-outlet>
         </main>
 ```
-Dans le fichier app.componenet.html, on appelle le router-outlet (reference au app-routing module.ts)
-C’est donc dans le app-routing.module.ts que l’ on créer nos routes.
+ 
+C’est donc dans le app-routing.module.ts que l’on créé nos routes.
 ```
 const routes: Routes = [
   {path: "inscription", component: PageSignInComponent}
@@ -142,7 +142,7 @@ PageSignInComponent est un composant page, qui contient tous les composants de l
   ________________________________
 ### Angular Materials
 
-Angular Materials consiste en une suite de composants pré-construits. Contrairement à Bootstrap, qui vous offre des composants que vous pouvez styler comme vous le souhaitez, Angular Material fournit une expérience utilisateur améliorée avec des composants stylisées. 
+Angular Materials consiste en une suite de composants pré-construits. Contrairement à Bootstrap, qui propose des composants que vous pouvez styliser comme vous le souhaitez, Angular Material fournit une expérience améliorée avec des composants stylisées. 
 
 Commande Installation Materials : 
 `ng add @angular/material`
