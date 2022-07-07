@@ -133,6 +133,6 @@ Ici, de nombreuses fonctionnalités sont présentes : premièrement on vient req
 
 Ensuite, via la requête et un observable nous récuperer les données puis nous transformons l'observable en Promise via la fonction lastValueFrom(). Ceci nous permet d'appliquer un traitement asynchrone `async/await`.
 
-Finalement, nous les mettons en forme au format JSON pour qu'elles soient le plus simple possible à exploiter une fois renvoyé vers le front.
+Finalement, nous les mettons en forme au format JSON pour qu'elles soient le plus simple possible à exploiter une fois renvoyées vers le front.
 
 Ces données sont donc retournées jusqu'au controlleur qui se charge d'envoyer la réponse au front qui les met en forme.
