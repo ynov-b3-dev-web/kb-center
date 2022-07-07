@@ -9,6 +9,7 @@
 - [Gatsby](https://github.com/ld-web/vtc-lyon-beaujolais)
 - [RIVE App (animations)](RIVE_App/)
 - [React Router Dom / HashLink](react-router-dom/README.md)
+- [Typescript](Typescript/)
 
 ## Back
 
