@@ -10,6 +10,7 @@
 - [RIVE App (animations)](RIVE_App/)
 - [React Router Dom / HashLink](react-router-dom/README.md)
 - [Typescript](Typescript/)
+- [Les références dans ReactJS](react-refs/)
 
 ## Back
 
