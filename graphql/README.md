@@ -2,24 +2,27 @@
 
 ## Qu'est-ce que GraphQL ?
 
-GraphQL est un language de requète pour les api. GraphQL est concu pour envoyer uniquements les données qui ont été demandé par le client. Cela permet d'optimiser les performances et la flexibilité d'une api.
+GraphQL est un language de requête pour les API. GraphQL est conçu pour envoyer uniquement les données qui ont été demandées par le client. Cela permet d'optimiser les performances et la flexibilité d'une API.
 
-## Les différences avec une rest api
+## Les différences avec une API Rest
 
-En rest api nous avons des méthodes http comme get, post, put, patch, delete... En graphql, il y a uniquement les queries et les mutations.
+Avec une API Rest, nous avons des méthodes HTTP comme GET, POST, PUT, PATCH, DELETE...avec GraphQL, il y a uniquement les queries et les mutations.
 
-L'équivalent d'un enpoint rest api est graphQL est un "resolver".
+L'équivalent d'un enpoint Rest API en GraphQL est un "resolver".
 
-Les queries sont comme les get en rest api. C'est-à-dire qu'ils ne vont pas modifier des données mais uniquement en récupérer. Les mutations sont comme les post, put, patch et delete en rest api. Leur objectif est de modifier des données. Attention, les mutations peuvent aussi renvoyer des données.
+Les queries sont comme les requêtes GET dans une API Rest, c'est-à-dire qu'ils ne vont pas modifier des données mais uniquement en récupérer.
+
+Les mutations sont comme les POST, PUT, PATCH et DELETE en Rest API. Leur objectif est de modifier des données. Attention, les mutations peuvent aussi renvoyer des données.
 
 La question que l'on pourrait se poser est : pourquoi avoir des queries ET des mutations ?
 
-En graphQL typer soit en query, soit en mutation permet de différencier les modifications (mutations), des simples récupérations de données (query).
+En GraphQL typer soit en query, soit en mutation permet de différencier les modifications (mutations), des simples récupérations de données (query).
 
 ## Les resolvers
 
-En graphQL, un endpoint s'appel un resolver. Par exemple :
+En GraphQL, un endpoint s'appelle un resolver. Par exemple :
 
+```txt
 query getAccount {
   account {
     lastName
@@ -29,11 +32,13 @@ query getAccount {
     phone  
   }
 }
+```
 
-Dans cet exemple, on appel le resolver account. On déclare vouloir récupérer uniquement lastName, firstName, username, email et phone.
+Dans cet exemple, on appelle le resolver account. On déclare vouloir récupérer uniquement lastName, firstName, username, email et phone.
 
 On peut aussi faire plusieurs requètes en une. Par exemple :
 
+```txt
 query getAll {
   account {
     lastName
@@ -47,14 +52,15 @@ query getAll {
     price
   }
 }
+```
 
-Dans cette requète, on appel deux resolvers en meme temps. Faire plusieurs requètes en une est très performant pour deux raisons :
+Dans cette requète, on appelle deux resolvers en même temps. Faire plusieurs requètes en une est très performant pour deux raisons :
 
-- cela crée une seule requète http et donc réduit la taille des paquets envoyés.
-- les queries sont éxécutées en parallele
+- cela crée une seule requète HTTP et donc réduit la taille des paquets envoyés
+- les queries sont exécutées en parallèle
 
-L'ensemble des requètes d'un back forme ce que l'on appel un schéma.
+L'ensemble des requêtes d'un back forme ce que l'on appelle un schéma.
 
-GraphQL est un must pour utiliser les micro services car il permet d'avoir un schéma unifié à appeler qui est lui-meme composé de plusieurs services pour chaque micro-service.
+GraphQL est un must pour utiliser les micro services car il permet d'avoir un schéma unifié à appeler qui est lui-même composé de plusieurs services pour chaque micro-service.
 
 Airbnb utilise ce système : https://qeunit.com/blog/airbnbs-microservices-architecture-journey-to-quality-engineering/
