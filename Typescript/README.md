@@ -123,4 +123,22 @@ Function push<T, U>(items : readonly T[], item : U ) : (T | U) [] {
 }
 ```
 
-On aura la possibilité de créer des alias pour mitiger ce problème. Bien que cette pratique est rare, vous pouvez aussi déplacer les types dans les commentaires si vous ne souhaitez pas les mélanger à votre code.
+## Composant générique
+
+Les composants génériques dans Typescript vous permettent de définir des composants avec un type spécial qui peut accepter plusieurs types au lieu d'un seul.
+
+Enfin, dans certains cas, vous souhaiterez peut-être créer des composants génériques dans React. C'est aussi possible avec la syntaxe suivante :
+
+```typescript
+interface Props<T> {
+    items: T[]
+}
+
+const Components = <T extends InitialState>({ items }: Props<T>) => {
+    
+}
+```
+
+Dans cet exemple, interface prend un générique avec la valeur de T et utilise cette valeur comme type pour `items`, qui dans cet exemple est un tableau.
+
+Notez également que vous pouvez indiquer une contrainte pour les génériques avec d'autres types en utilisant le mot-clé `extends`, pour s'assurer qu'ils sont d'un type de base.
